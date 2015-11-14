@@ -4,9 +4,10 @@
 \name{relationshipmm-package}
 \alias{relationshipmm}
 \alias{relationshipmm-package}
-\title{HFit relationship matrices based mixed-effects model}
+\title{Mixed Models with relationship matrices}
 \description{
-Fit relationship matrices based mixed-effects model.
+An R package for (Generalized) Linear Mixed Models (G)LMM which
+allows to use user defined 'G-site' covariance relationship matrices.
 }
 \author{
 Jonas Klasen

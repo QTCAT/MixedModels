@@ -1,10 +1,11 @@
 Package: relationshipmm
 Type: Package
-Title: Fit relationship matrices based mixed-effects models
+Title: Mixed Models with relationship matrices
 Version: 0.0-1
 Author: Jonas Klasen
 Maintainer: Jonas klasen maintainer@gmx.de
-Description: Fit relationship matrices based mixed-effects models.
+Description: An R package for (Generalized) Linear Mixed Models (G)LMM which
+    allows to use user defined 'G-site' covariance relationship matrices.
 Depends: R (>= 3.0.0), lme4 (>= 1.0), pedigreemm (>= 0.3)
 Imports: Matrix (>= 1.0)
 License: GPL (>= 2)

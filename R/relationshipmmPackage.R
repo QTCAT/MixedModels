@@ -9,4 +9,6 @@
 #'
 #' @author Jonas Klasen
 #'
+#' @import lme4
+#' @import pedigreemm
 NULL

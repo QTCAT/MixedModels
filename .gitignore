@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 .Rprofile
-relationshipmm.Rproj
+relMM.Rproj
 packrat/lib*/
 src/*.o
 src/*.so

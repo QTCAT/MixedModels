@@ -1,5 +1,5 @@
-#' @name relMM-package
 #' @docType package
+#' @name relMM-package
 #'
 #' @title Mixed Models with relationship matrices
 #'

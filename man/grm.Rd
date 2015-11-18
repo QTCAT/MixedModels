@@ -4,12 +4,18 @@
 \alias{grm}
 \title{Genetic relationship matrix}
 \usage{
-grm(x)
+grm(x, checkPD = TRUE, ...)
 }
 \arguments{
 \item{x}{a matrix (n x p) of n individuals (rows) and p SNPs (columns). The
 alleles have to be coded by AA = 0, AB = 0.5, and BB = 1. Missing data are
 not yet allowed.}
+
+\item{checkPD}{logickal, if true (default) the nearest positive definite 
+matrix to the GRM is compute if the GRM does not fulfill these 
+requirements anyways.}
+
+\item{...}{additional arguments to \code{\link[Matrix]{nearPD}}.}
 }
 \description{
 Computers a genetic relationship matrix (GRM) from SNP data.

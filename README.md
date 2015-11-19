@@ -17,5 +17,14 @@ and if you know what you are doing!
 devtools::install_github("jrklasen/relMM")
 ```
 
+### Single observation per random-effect term levels
+If a random-effect term has single observations per level, but can be 
+distinguished from the residuals by the relationship matrix, the 
+``control``-argument of ``relMM()`` can be used to allow a fit of this model.
+```R
+relMM(..., controle = lmerControl(check.nobs.vs.nlev = "ignore", 
+                                  check.nobs.vs.nRE = "ignore"))
+```
+
 --------------------------------------------------------------------------------
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)

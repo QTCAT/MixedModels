@@ -20,7 +20,7 @@ devtools::install_github("jrklasen/relMM")
 ### Single observation per random-effect term levels
 If a random-effect term has single observations per level, but can be 
 distinguished from the residuals by the relationship matrix, the 
-``control``-argument of ``relMM()`` can be used to allow a fit of this model.
+``control``-argument of ``relMM()`` can be used in order to bypass the checks.
 ```R
 relMM(..., controle = lmerControl(check.nobs.vs.nlev = "ignore", 
                                   check.nobs.vs.nRE = "ignore"))

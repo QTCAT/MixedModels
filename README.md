@@ -11,7 +11,7 @@ not tested in a wide range of possible applications, but instead only for those
 areas related to my own work. This means, that you should use it only with care 
 and if you know what you are doing!
 
-## Installation:
+### Installation:
 ```R
 # install.packages("devtools")
 devtools::install_github("jrklasen/relMM")

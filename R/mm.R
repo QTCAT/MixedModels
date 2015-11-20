@@ -113,7 +113,7 @@ relMM <-  function(formula, data, family = NULL, REML = TRUE,
     Zti <- (ind[1] + 1L):ind[2]
     if (!all(rownames(Zt)[Zti] %in% rownames(covarrel[[i]])))
       stop("levels of a random-effect term are not part of the according relationship matrix")
-    relfaci <- match(rownames(covarrel[[i]]), rownames(Zt)[Zti])
+    relfaci <- match(rownames(Zt)[Zti], rownames(covarrel[[i]]))
     relfac[[i]] <- tryCatch(chol(covarrel[[i]][relfaci, relfaci]),
                             error = function(x) {
                               message("each relatinships matrices must be positive semidefinite")

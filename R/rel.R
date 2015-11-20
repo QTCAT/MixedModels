@@ -31,6 +31,7 @@ grm <- function(x, checkPD = TRUE, ...) {
   A
 }
 
+
 #' Rescale a relationship matrix
 #'
 #' Rescale a relationship matrix for a realistic variance component estimation.

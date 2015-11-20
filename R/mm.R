@@ -1,4 +1,3 @@
-
 #' @title Mixed Models incopareting relationship matrices
 #' 
 #' @description Fit (Generalized) Linear Mixed Models incopareting user 
@@ -63,7 +62,7 @@ relMM <-  function(formula, data, family = NULL, REML = TRUE,
     nrow(x) == ncol(x) &&
       identical(rownames(x), colnames(x)) &&
       inherits(x, "Matrix") || inherits(x, "matrix") &&
-      isTRUE(all.equal(x[upper.tri(x)], rev(x[lower.tri(x)]), tolerance = tol))
+      isTRUE(all.equal(x[upper.tri(x)], t(x)[upper.tri(x)], tolerance = tol))
   })))
     stop("every relatinships matrix must be a symmetric matrix which identical column and row names")
   lmf <- eval(lmerc, parent.frame())

@@ -1,36 +1,3 @@
-#' Genetic relationship matrix
-#'
-#' Computers a genetic relationship matrix (GRM) from SNP data.
-#'
-#' @param x a matrix (n x p) of n individuals (rows) and p SNPs (columns). The
-#' alleles have to be coded by AA = 0, AB = 0.5, and BB = 1. Missing data are
-#' not yet allowed.
-#' @param checkPD logickal, if true (default) the nearest positive definite 
-#' matrix to the GRM is compute if the GRM does not fulfill these 
-#' requirements anyways.
-#' @param ... additional arguments to \code{\link[Matrix]{nearPD}}.
-#'
-#' @importFrom Matrix nearPD
-#' @export
-grm <- function(x, checkPD = TRUE, ...) {
-  stopifnot(is.matrix(x))
-  stopifnot(!is.na(x))
-  if (!all(na.omit(unique(as.vector(x))) %in% c(0, .5, 1)))
-    stop("alleles have to be coded by AA = 0, AB = 0.5, and BB = 1")
-  f <- colMeans(x)
-  v <- mean(f * (1 - f))
-  w <- x - matrix(rep(f, each = nrow(x)), nrow(x))
-  A <- tcrossprod(w) / (ncol(x) / 2 * v)
-  if (checkPD)
-    A <- tryCatch(nearPD(A, ...)$mat,
-                  error = function(x) {
-                    message("it was not possible to find a positive definite matrix")
-                    message(x)
-                    return(NULL)
-                  })
-  A
-}
-
 
 #' @title Mixed Models incopareting relationship matrices
 #' 
@@ -92,12 +59,13 @@ relMM <-  function(formula, data, family = NULL, REML = TRUE,
   # check the covarrel argument
   stopifnot(is.list(covarrel),
             length(names(covarrel)) == length(covarrel))
-  if (!all(sapply(covarrel, function(x) {
-    nrow(x) == ncol(x) && 
-      all(rownames(x) == colnames(x)) && 
-      (inherits(x, "Matrix") || inherits(x, "matrix"))
+  if (!all(sapply(covarrel, function(x, tol = 1e-3) {
+    nrow(x) == ncol(x) &&
+      identical(rownames(x), colnames(x)) &&
+      inherits(x, "Matrix") || inherits(x, "matrix") &&
+      isTRUE(all.equal(x[upper.tri(x)], rev(x[lower.tri(x)]), tolerance = tol))
   })))
-    stop("every relatinships matrix must be a square matrix which identical column and row names")
+    stop("every relatinships matrix must be a symmetric matrix which identical column and row names")
   lmf <- eval(lmerc, parent.frame())
   # copy the pedigree list for relfactor
   relfac <- covarrel
@@ -145,38 +113,3 @@ relMM <-  function(formula, data, family = NULL, REML = TRUE,
   ans@call <- evalq(mc)
   ans
 }
-
-
-# setMethod("ranef", signature(object = "pedigreemm"),
-#           function(object, postVar = FALSE, drop = FALSE, 
-#                    whichel = names(ans), pedigree = TRUE, ...) {
-#             if ((postVar <- as.logical(postVar)) && (pedigree <- as.logical(pedigree)))
-#               stop("code for applying pedigree and posterior variances not yet written")
-#             ans <- ranef(as(object, "merMod"), postVar, drop = FALSE)
-#             ans <- ans[whichel]
-#             if (pedigree) {
-#               if (postVar)
-#                 stop("postVar and pedigree cannot both be true")
-#               rf <- object@relfac
-#               for (nm in names(rf)) {
-#                 dm <- data.matrix(ans[[nm]])
-#                 cn <- colnames(dm)
-#                 rn <- rownames(dm)
-#                 dm <- as.matrix(rf[[nm]] %*% dm)
-#                 colnames(dm) <- cn
-#                 rownames(dm) <- rn
-#                 ans[[nm]] <- data.frame(dm, check.names = FALSE)
-#               }
-#             }
-#             if (drop)
-#               ans <- lapply(ans, function(el)
-#               {
-#                 if (ncol(el) > 1) return(el)
-#                 pv <- drop(attr(el, "postVar"))
-#                 el <- drop(as.matrix(el))
-#                 if (!is.null(pv))
-#                   attr(el, "postVar") <- pv
-#                 el
-#               })
-#             ans
-#           })

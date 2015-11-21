@@ -2,7 +2,6 @@
 
 export(grm)
 export(relMM)
-export(rescale)
 import(lme4)
 import(pedigreemm)
 importFrom(Matrix,nearPD)

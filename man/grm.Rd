@@ -11,13 +11,21 @@ grm(x, checkPD = TRUE, ...)
 alleles have to be coded by AA = 0, AB = 0.5, and BB = 1. Missing data are
 not yet allowed.}
 
-\item{checkPD}{logickal, if true (default) the nearest positive definite 
-matrix to the GRM is compute if the GRM does not fulfill these 
+\item{checkPD}{logickal, if true (default) the nearest positive definite
+matrix to the GRM is compute if the GRM does not fulfill these
 requirements anyways.}
 
 \item{...}{additional arguments to \code{\link[Matrix]{nearPD}}.}
 }
 \description{
 Computers a genetic relationship matrix (GRM) from SNP data.
+}
+\examples{
+# simulate data
+set.seed(123)
+x <- matrix(rbinom(1000, 2, .7)/2, 10, 100)
+# estimated relationship matrix
+g_rel <- grm(x)
+
 }
 

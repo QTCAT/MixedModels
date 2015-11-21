@@ -1,38 +1,38 @@
 #' @title Mixed Models incopareting relationship matrices
-#' 
-#' @description Fit (Generalized) Linear Mixed Models incopareting user 
-#' defined 'G-site' covariance relationship matrices. Derifed from 
+#'
+#' @description Fit (Generalized) Linear Mixed Models incopareting user
+#' defined 'G-site' covariance relationship matrices. Derifed from
 #' \code{\link[pedigreemm]{pedigreemm}}.
-#' 
-#' @inheritParams lme4::lmer 
-#' @param family a GLM family, see \code{\link[stats]{glm}} and 
+#'
+#' @inheritParams lme4::lmer
+#' @param family a GLM family, see \code{\link[stats]{glm}} and
 #' \code{\link[stats]{family}}.
-#' @param covarrel a named list of relationship matrices. The names must 
-#' correspond to the names of grouping factors for random-effects terms in the 
+#' @param covarrel a named list of relationship matrices. The names must
+#' correspond to the names of grouping factors for random-effects terms in the
 #' \code{formula} argument.
-#' 
-#' 
-#' @details All arguments to this function are the same as those to the 
-#' function \code{\link[lme4]{lmer}} (or in case of family 
-#' \code{\link[lme4]{glmer}}) except \code{covarrel} which must be a 
-#' named list of relationship matrices.  Each name (frequently 
-#' there is only one) must correspond to the name of a grouping factor in a 
-#' random-effects term in the \code{formula}.  The observed levels of that 
-#' factor must be contained in the column and row names of the relationship 
-#' matrix.  For each relationship matrix the (left) Cholesky factor of the 
+#'
+#'
+#' @details All arguments to this function are the same as those to the
+#' function \code{\link[lme4]{lmer}} (or in case of family
+#' \code{\link[lme4]{glmer}}) except \code{covarrel} which must be a
+#' named list of relationship matrices.  Each name (frequently
+#' there is only one) must correspond to the name of a grouping factor in a
+#' random-effects term in the \code{formula}.  The observed levels of that
+#' factor must be contained in the column and row names of the relationship
+#' matrix.  For each relationship matrix the (left) Cholesky factor of the
 #' observed levels is calculated and applied to the model matrix for that term.
-#' 
+#'
 #' @return a \code{\linkS4class{pedigreemm}} object.
-#' 
-#' @references Vazquez, A.I., D.M. Bates, G.J.M. Rosa, D. Gianola and K.A. 
-#' Weigel. (2010). Technical Note: An R package for fitting generalized linear 
+#'
+#' @references Vazquez, A.I., D.M. Bates, G.J.M. Rosa, D. Gianola and K.A.
+#' Weigel. (2010). Technical Note: An R package for fitting generalized linear
 #' mixed models in animal breeding. Journal of Animal Science, 88:497-504.
-#' 
+#'
 #' @keywords models
 #' @export
-relMM <-  function(formula, data, family = NULL, REML = TRUE, 
-                   covarrel = list(), control = list(), start = NULL, 
-                   verbose = FALSE, subset, weights, na.action, 
+relMM <-  function(formula, data, family = NULL, REML = TRUE,
+                   covarrel = list(), control = list(), start = NULL,
+                   verbose = FALSE, subset, weights, na.action,
                    offset, contrasts = NULL, devFunOnly = FALSE, ...) {
   gaus <- FALSE
   if (is.null(family)) {
@@ -56,8 +56,8 @@ relMM <-  function(formula, data, family = NULL, REML = TRUE,
   if (!length(covarrel))
     return(eval.parent(lmerc))
   # check the covarrel argument
-  stopifnot(is.list(covarrel),
-            length(names(covarrel)) == length(covarrel))
+  if (!is.list(covarrel) || length(names(covarrel)) != length(covarrel))
+    stop ("covarrel has to be a named list of relationship matrices")
   if (!all(sapply(covarrel, function(x, tol = 1e-3) {
     nrow(x) == ncol(x) &&
       identical(rownames(x), colnames(x)) &&
@@ -104,10 +104,10 @@ relMM <-  function(formula, data, family = NULL, REML = TRUE,
   }
   mm <- mkMerMod(environment(devfun), opt, reTrms, lmf@frame, mc)
   cls <- if (gaus) "lmerpedigreemm" else "glmerpedigreemm"
-  ans <- do.call(new, list(Class = cls, relfac = relfac, frame = mm@frame, 
+  ans <- do.call(new, list(Class = cls, relfac = relfac, frame = mm@frame,
                            flist = mm@flist, cnms = mm@cnms, Gp = mm@Gp,
-                           theta = mm@theta, beta = mm@beta, u = mm@u, 
-                           lower = mm@lower, devcomp = mm@devcomp, pp = mm@pp, 
+                           theta = mm@theta, beta = mm@beta, u = mm@u,
+                           lower = mm@lower, devcomp = mm@devcomp, pp = mm@pp,
                            resp = mm@resp, optinfo = mm@optinfo))
   ans@call <- evalq(mc)
   ans

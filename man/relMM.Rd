@@ -29,14 +29,14 @@ relMM(formula, data, family = NULL, REML = TRUE, covarrel = list(),
     of \code{formula} (if specified as a formula) or from the parent
     frame (if specified as a character vector).}
 
-\item{family}{a GLM family, see \code{\link[stats]{glm}} and 
+\item{family}{a GLM family, see \code{\link[stats]{glm}} and
 \code{\link[stats]{family}}.}
 
 \item{REML}{logical scalar - Should the estimates be chosen to
     optimize the REML criterion (as opposed to the log-likelihood)?}
 
-\item{covarrel}{a named list of relationship matrices. The names must 
-correspond to the names of grouping factors for random-effects terms in the 
+\item{covarrel}{a named list of relationship matrices. The names must
+correspond to the names of grouping factors for random-effects terms in the
 \code{formula} argument.}
 
 \item{control}{a list (of correct class, resulting from
@@ -102,24 +102,24 @@ correspond to the names of grouping factors for random-effects terms in the
 a \code{\linkS4class{pedigreemm}} object.
 }
 \description{
-Fit (Generalized) Linear Mixed Models incopareting user 
-defined 'G-site' covariance relationship matrices. Derifed from 
+Fit (Generalized) Linear Mixed Models incopareting user
+defined 'G-site' covariance relationship matrices. Derifed from
 \code{\link[pedigreemm]{pedigreemm}}.
 }
 \details{
-All arguments to this function are the same as those to the 
-function \code{\link[lme4]{lmer}} (or in case of family 
-\code{\link[lme4]{glmer}}) except \code{covarrel} which must be a 
-named list of relationship matrices.  Each name (frequently 
-there is only one) must correspond to the name of a grouping factor in a 
-random-effects term in the \code{formula}.  The observed levels of that 
-factor must be contained in the column and row names of the relationship 
-matrix.  For each relationship matrix the (left) Cholesky factor of the 
+All arguments to this function are the same as those to the
+function \code{\link[lme4]{lmer}} (or in case of family
+\code{\link[lme4]{glmer}}) except \code{covarrel} which must be a
+named list of relationship matrices.  Each name (frequently
+there is only one) must correspond to the name of a grouping factor in a
+random-effects term in the \code{formula}.  The observed levels of that
+factor must be contained in the column and row names of the relationship
+matrix.  For each relationship matrix the (left) Cholesky factor of the
 observed levels is calculated and applied to the model matrix for that term.
 }
 \references{
-Vazquez, A.I., D.M. Bates, G.J.M. Rosa, D. Gianola and K.A. 
-Weigel. (2010). Technical Note: An R package for fitting generalized linear 
+Vazquez, A.I., D.M. Bates, G.J.M. Rosa, D. Gianola and K.A.
+Weigel. (2010). Technical Note: An R package for fitting generalized linear
 mixed models in animal breeding. Journal of Animal Science, 88:497-504.
 }
 \keyword{models}

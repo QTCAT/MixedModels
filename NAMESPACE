@@ -2,6 +2,8 @@
 
 export(grm)
 export(relMM)
+export(relMMboot)
 import(lme4)
 import(pedigreemm)
 importFrom(Matrix,nearPD)
+importFrom(boot,boot)

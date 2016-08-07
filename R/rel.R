@@ -14,14 +14,15 @@
 #' # simulate data
 #' set.seed(123)
 #' x <- matrix(rbinom(1000, 2, .7)/2, 10, 100)
+#' rownames(x) <- paste0("indiv", 1:nrow(x))
 #' # estimated relationship matrix
-#' g_rel <- grm(x)
+#' genorel <- grm(x)
 #'
 #' @importFrom Matrix nearPD
 #' @export
 grm <- function(x, checkPD = TRUE, ...) {
   stopifnot(is.matrix(x))
-  if (is.na(x))
+  if (any(is.na(x)))
     stop("in 'x' missing data are not allowed")
   if (is.null(rownames(x)))
     stop("row names of 'x' are missing")

@@ -24,8 +24,9 @@ Computers a genetic relationship matrix (GRM) from SNP data.
 # simulate data
 set.seed(123)
 x <- matrix(rbinom(1000, 2, .7)/2, 10, 100)
+rownames(x) <- paste0("indiv", 1:nrow(x))
 # estimated relationship matrix
-g_rel <- grm(x)
+genorel <- grm(x)
 
 }
 

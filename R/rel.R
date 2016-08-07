@@ -21,7 +21,10 @@
 #' @export
 grm <- function(x, checkPD = TRUE, ...) {
   stopifnot(is.matrix(x))
-  stopifnot(!is.na(x))
+  if (is.na(x))
+    stop("in 'x' missing data are not allowed")
+  if (is.null(rownames(x)))
+    stop("row names of 'x' are missing")
   if (!all(na.omit(unique(as.vector(x))) %in% c(0, .5, 1)))
     stop("alleles have to be coded by AA = 0, AB = 0.5, and BB = 1")
   n <- nrow(x)

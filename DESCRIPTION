@@ -11,7 +11,8 @@ Depends:
     lme4 (>= 1.0),
     pedigreemm (>= 0.3)
 Imports:
-    Matrix (>= 1.0)
+    Matrix (>= 1.0),
+    boot
 License: GPL (>= 2)
 LazyData: true
 RoxygenNote: 5.0.1

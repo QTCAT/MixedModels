@@ -13,10 +13,16 @@ relMM(formula, data, family = NULL, REML = TRUE, covarrel = list(),
     fixed-effects and random-effects part of the model, with the
     response on the left of a \code{~} operator and the terms, separated
     by \code{+} operators, on the right.  Random-effects terms are
-    distinguished by vertical bars (\code{"|"}) separating expressions
+    distinguished by vertical bars (\code{|}) separating expressions
     for design matrices from grouping factors.  Two vertical bars
-    (\code{"||"}) can be used to specify multiple uncorrelated random
-    effects for the same grouping variable.}
+    (\code{||}) can be used to specify multiple uncorrelated random
+    effects for the same grouping variable. (Because of the way it is
+    implemented, the \code{||}-syntax \emph{works
+    only for design matrices containing
+    numeric (continuous) predictors}; to fit models with independent
+  categorical effects, see \code{\link{dummy}} or the \code{lmer_alt}
+  function from the \code{afex} package.) 
+}
 
 \item{data}{an optional data frame containing the variables named in
     \code{formula}.  By default the variables are taken from the
@@ -116,6 +122,40 @@ random-effects term in the \code{formula}.  The observed levels of that
 factor must be contained in the column and row names of the relationship
 matrix.  For each relationship matrix the (left) Cholesky factor of the
 observed levels is calculated and applied to the model matrix for that term.
+}
+\examples{
+# modifide from pedigreemm example
+# pedigree and relationship matrix
+p1 <- new("pedigree",
+          sire = as.integer(c(NA, NA, 1, 1, 4, 5, 1, 4, 4, 5)),
+          dam  = as.integer(c(NA, NA, 2, NA, 3, 2, 3, 6, 6, 2)),
+          label = as.character(1:10))
+A <- pedigreemm::getA(p1)
+cholA <- chol(A)
+# variance componens
+varU <- 2
+varE <- 6
+# number of observations
+rep <- 20
+n <- rep * 10
+ID <- rep(1:10, each = rep)
+# simulated random effects
+set.seed(108)
+bStar <- rnorm(10)
+bStar <- bStar * (sqrt(varU) / sd(bStar[ID]))
+b <- as.vector(crossprod(cholA, bStar))
+# simulated error
+e0 <- rnorm(n)
+e0 <- e0 * (sqrt(varE) / sd(e0))
+# simulated observations
+y <- 10 + b[ID] + e0
+# models
+fm1 <- pedigreemm(y ~ (1 | ID) , pedigree = list(ID = p1))
+fm2 <- relMM(formula = y ~ (1 | ID) , covarrel = list(ID = A))
+
+# require(coxme)
+# fm3 <- lmekin(y ~ (1 | ID) , varlist = list(ID = A), method = "REML")
+
 }
 \references{
 Vazquez, A.I., D.M. Bates, G.J.M. Rosa, D. Gianola and K.A.

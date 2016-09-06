@@ -27,6 +27,39 @@
 #' @references Vazquez, A.I., D.M. Bates, G.J.M. Rosa, D. Gianola and K.A.
 #' Weigel. (2010). Technical Note: An R package for fitting generalized linear
 #' mixed models in animal breeding. Journal of Animal Science, 88:497-504.
+#' 
+#' @examples 
+#' # modifide from pedigreemm example
+#' # pedigree and relationship matrix
+#' p1 <- new("pedigree",
+#'           sire = as.integer(c(NA, NA, 1, 1, 4, 5, 1, 4, 4, 5)),
+#'           dam  = as.integer(c(NA, NA, 2, NA, 3, 2, 3, 6, 6, 2)),
+#'           label = as.character(1:10))
+#' A <- pedigreemm::getA(p1)
+#' cholA <- chol(A)
+#' # variance componens
+#' varU <- 2
+#' varE <- 6
+#' # number of observations
+#' rep <- 20
+#' n <- rep * 10
+#' ID <- rep(1:10, each = rep)
+#' # simulated random effects
+#' set.seed(108)
+#' bStar <- rnorm(10)
+#' bStar <- bStar * (sqrt(varU) / sd(bStar[ID]))
+#' b <- as.vector(crossprod(cholA, bStar))
+#' # simulated error
+#' e0 <- rnorm(n)
+#' e0 <- e0 * (sqrt(varE) / sd(e0))
+#' # simulated observations
+#' y <- 10 + b[ID] + e0
+#' # models
+#' fm1 <- pedigreemm(y ~ (1 | ID) , pedigree = list(ID = p1))
+#' fm2 <- relMM(formula = y ~ (1 | ID) , covarrel = list(ID = A))
+#' 
+#' # require(coxme)
+#' # fm3 <- lmekin(y ~ (1 | ID) , varlist = list(ID = A), method = "REML")
 #'
 #' @keywords models
 #' @export

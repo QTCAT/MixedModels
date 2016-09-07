@@ -7,13 +7,13 @@
 beta.ci(object, conf = 0.95, index = 1)
 }
 \arguments{
+\item{object}{a bootstrap output object returned from a call to boot.}
+
 \item{conf}{a scalar or vector containing the confidence level of the 
 required interval.}
 
 \item{index}{the index of the statistic of interest within the output of a 
 call to boot.out$statistic.}
-
-\item{model}{a bootstrap output object returned from a call to boot.}
 }
 \description{
 Using the normal approximation to a statistic, calculate beta distrinution

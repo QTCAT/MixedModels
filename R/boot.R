@@ -10,6 +10,7 @@
 #' machines.
 #'
 #' @importFrom boot boot
+#' @importFrom stats update simulate
 #' @export
 relMMboot <- function(model, func, R = 1000, cores = 1) {
   out <- boot(list(data = model@frame, model = model, func = func),
@@ -32,7 +33,7 @@ relMMboot <- function(model, func, R = 1000, cores = 1) {
 #' Using the normal approximation to a statistic, calculate beta distrinution
 #' two-sided confidence intervals.
 #'
-#' @param model a bootstrap output object returned from a call to boot.
+#' @param object a bootstrap output object returned from a call to boot.
 #' @param conf	a scalar or vector containing the confidence level of the 
 #' required interval.
 #' @param index the index of the statistic of interest within the output of a 
@@ -40,7 +41,7 @@ relMMboot <- function(model, func, R = 1000, cores = 1) {
 #'
 #' @importFrom stats qbeta var
 #' @export
-beta.ci <- function (object, conf = 0.95, index = 1) {
+beta.ci <- function(object, conf = 0.95, index = 1) {
   stopifnot(class(object) == "boot")
   p <- (1 + conf) / 2
   x <- object$t[, index[1]]

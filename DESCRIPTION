@@ -11,6 +11,8 @@ Depends:
     lme4 (>= 1.0),
     pedigreemm (>= 0.3)
 Imports:
+    methods,
+    stats,
     Matrix (>= 1.0),
     boot
 License: GPL (>= 2)

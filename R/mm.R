@@ -62,6 +62,7 @@
 #' # fm3 <- lmekin(y ~ (1 | ID) , varlist = list(ID = A), method = "REML")
 #'
 #' @keywords models
+#' @importFrom methods new
 #' @export
 relMM <-  function(formula, data, family = NULL, REML = TRUE,
                    covarrel = list(), control = list(), start = NULL,

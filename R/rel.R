@@ -19,6 +19,7 @@
 #' genorel <- grm(x)
 #'
 #' @importFrom Matrix nearPD
+#' @importFrom stats na.omit
 #' @export
 grm <- function(x, checkPD = TRUE, ...) {
   stopifnot(is.matrix(x))

@@ -56,7 +56,7 @@
 #' y <- 10 + b[ID] + e0
 #' # models
 #' fm1 <- pedigreemm(y ~ (1 | ID) , pedigree = list(ID = p1))
-#' fm2 <- relMM(formula = y ~ (1 | ID) , covarrel = list(ID = A))
+#' fm2 <- mm(formula = y ~ (1 | ID) , covarrel = list(ID = A))
 #' 
 #' # require(coxme)
 #' # fm3 <- lmekin(y ~ (1 | ID) , varlist = list(ID = A), method = "REML")
@@ -64,7 +64,7 @@
 #' @keywords models
 #' @importFrom methods new
 #' @export
-relMM <-  function(formula, data, family = NULL, REML = TRUE,
+mm <-  function(formula, data, family = NULL, REML = TRUE,
                    covarrel = list(), control = list(), start = NULL,
                    verbose = FALSE, subset, weights, na.action,
                    offset, contrasts = NULL, devFunOnly = FALSE, ...) {

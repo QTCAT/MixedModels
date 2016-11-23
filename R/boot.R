@@ -12,7 +12,7 @@
 #' @importFrom boot boot
 #' @importFrom stats update simulate
 #' @export
-relMMboot <- function(model, func, R = 1000, cores = 1) {
+mmBoot <- function(model, func, R = 1000, cores = 1) {
   out <- boot(list(data = model@frame, model = model, func = func),
               statistic = function(x) {
                 fit <- update(x$model, data = x$data)

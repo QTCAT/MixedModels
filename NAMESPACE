@@ -2,8 +2,8 @@
 
 export(beta.ci)
 export(grm)
-export(relMM)
-export(relMMboot)
+export(mm)
+export(mmBoot)
 import(lme4)
 import(pedigreemm)
 importFrom(Matrix,nearPD)

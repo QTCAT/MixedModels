@@ -1,5 +1,5 @@
 Type: Package
-Package: relMM
+Package: MixedModels
 Title: Mixed Models incopareting relationship matrices
 Description: An R package for (Generalized) Linear Mixed Models (G)LMM 
   incopareting user defined 'G-site' covariance relationship matrices. Derifed 

@@ -1,22 +1,22 @@
 
-# relMM
+# MixedModels
 
 ### Description:
 An R package for (Generalized) Linear Mixed Models (G)LMM incorporating user defined 'G-site' covariance relationship matrices (derived from [pedigreemm](https://cran.r-project.org/web/packages/pedigreemm/index.html)).
 
-The package was created to get things done in my own research, estimation of variance components in quantitative genetics. It allows the use of methods written for the lme4 package, however, in combination with the here made changes they are perhaps not valid. Therefore, this combination should be used with caution.
+The package was created in order to get things done in my own research; estimation of variance components in quantitative genetics. Any other use cases is not tested and may or may not be valid.
 
 ### Installation:
 ```R
 # install.packages("devtools")
-devtools::install_github("jrklasen/relMM")
+devtools::install_github("jrklasen/MixedModels")
 ```
 
 ### Single observation per level of a random-effect term: 
-If a random-effect term has single observations per level, but can be distinguished from the residuals by the relationship matrix, the ``control``-argument of ``relMM()`` can be used in order to bypass the checks.
+If a random-effect term has single observations per level, but can be distinguished from the residuals by the relationship matrix, the ``control``-argument of ``mm()`` can be used in order to bypass the checks.
 ```R
-relMM(..., control = lmerControl(check.nobs.vs.nlev = "ignore", 
-                                 check.nobs.vs.nRE = "ignore"))
+mm(..., control = lmerControl(check.nobs.vs.nlev = "ignore", 
+                              check.nobs.vs.nRE = "ignore"))
 ```
 
 --------------------------------------------------------------------------------

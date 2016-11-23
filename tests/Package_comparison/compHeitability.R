@@ -1,6 +1,6 @@
 library("coxme")
 library("rrBLUP")
-library("relMM")
+library("MixedModels")
 require("heritability")
 
 data(LDV)
@@ -24,12 +24,12 @@ lmmz1 <- mixed.solve(y = LDV1$LDV, K = K1,
                     method = "REML")
 c(lmmz1$Vu, lmmz1$Ve)
 
-# relMM (lme4 with "Nelder-Mead" optimizer)
+# MixedModels (lme4 with "Nelder-Mead" optimizer)
 checks <- lmerControl(check.nobs.vs.nlev = "ignore", 
                       check.nobs.vs.nRE = "ignore")
-lmmx1 <- relMM(LDV ~ 1 + (1 | genotype), data = LDV1, 
-               REML = TRUE, covarrel = list(genotype = K1), 
-               control = checks)
+lmmx1 <- mm(LDV ~ 1 + (1 | genotype), data = LDV1, 
+            REML = TRUE, covarrel = list(genotype = K1), 
+            control = checks)
 c(unlist(VarCorr(lmmx1)), sigma(lmmx1)^2)
 
 # heritability
@@ -60,12 +60,12 @@ lmmz2 <- mixed.solve(y = LDV$LDV,
                     method = "REML")
 c(lmmz2$Vu, lmmz2$Ve)
 
-# relMM (lme4 with "Nelder-Mead" optimizer)
+# MixedModels (lme4 with "Nelder-Mead" optimizer)
 checks <- lmerControl(check.nobs.vs.nlev = "ignore", 
                       check.nobs.vs.nRE = "ignore")
-lmmx2 <- relMM(LDV ~ 1 + replicate + (1 | genotype), data = LDV, 
-               REML = TRUE, covarrel = list(genotype = K2), 
-               control = checks)
+lmmx2 <- mm(LDV ~ 1 + replicate + (1 | genotype), data = LDV, 
+            REML = TRUE, covarrel = list(genotype = K2), 
+            control = checks)
 c(unlist(VarCorr(lmmx2)), sigma(lmmx2)^2)
 
 # heritability
@@ -88,13 +88,13 @@ c(lmmy3$vcoef$genotype, lmmy3$sigma^2)
 # rrBLUP (EMMA like with "Brent" optimizer)
 #   not aplicable
 
-# relMM (lme4 with "Nelder-Mead" optimizer)
+# MixedModels (lme4 with "Nelder-Mead" optimizer)
 LDV$genotype2 <- LDV$genotype
 checks <- lmerControl(check.nobs.vs.nlev = "ignore", 
                       check.nobs.vs.nRE = "ignore")
-lmmx3 <- relMM(LDV ~ 1 + replicate + (1 | genotype) + (1 | genotype2), data = LDV, 
-               REML = TRUE, covarrel = list(genotype = K2), 
-               control = checks)
+lmmx3 <- mm(LDV ~ 1 + replicate + (1 | genotype) + (1 | genotype2), data = LDV, 
+            REML = TRUE, covarrel = list(genotype = K2), 
+            control = checks)
 c(unlist(VarCorr(lmmx3)), sigma(lmmx3)^2)
 
 # heritability

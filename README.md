@@ -4,7 +4,7 @@
 ### Description:
 An R package for (Generalized) Linear Mixed Models (G)LMM incorporating user defined 'G-site' covariance relationship matrices (derived from [pedigreemm](https://cran.r-project.org/web/packages/pedigreemm/index.html)).
 
-The package was created in order to get things done in my own research; estimation of variance components in quantitative genetics. Any other use cases are not tested and may or may not be valid.
+The package was created in order to get things done in my own research; estimation of variance components in quantitative genetics. Any other use case is not tested and may or may not be valid.
 
 ### Installation:
 ```R

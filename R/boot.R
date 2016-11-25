@@ -30,10 +30,10 @@ mmBoot <- function(model, func, R = 1000, cores = 1) {
 
 #' Beta Approximation Confidence Intervals
 #'
-#' Using the normal approximation to a statistic, calculate beta distrinution
-#' two-sided confidence intervals.
+#' Using the bootstrapping mean and variance to calculate beta distributed two-sided 
+#' confidence intervals.
 #'
-#' @param object a bootstrap output object returned from a call to boot.
+#' @param object a bootstrap object returned from a call to boot.
 #' @param conf	a scalar or vector containing the confidence level of the 
 #' required interval.
 #' @param index the index of the statistic of interest within the output of a 
@@ -51,6 +51,8 @@ beta.ci <- function(object, conf = 0.95, index = 1) {
   # from mean and var to alpha and beta
   a <- ((1 - mu0) / var0 - 1 / mu0) * mu0^2
   b <- a * (1 / mu0 - 1)
-  c(conf, qbeta(1 - p, a, b), qbeta(p, a, b))
+  out <- c(qbeta(1 - p, a, b), mu0, qbeta(p, a, b))
+  names(out) <- c(paste("lower", conf, "limit"), "mean", paste("upper", conf, "limit"))
+  out
 }
 

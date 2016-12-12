@@ -1,6 +1,6 @@
-#' @title Mixed Models incopareting relationship matrices
+#' @title Mixed Models with covariance relationship matrices
 #'
-#' @description Fit (Generalized) Linear Mixed Models incopareting user
+#' @description Fit (Generalized) Linear Mixed Models with user
 #' defined 'G-site' covariance relationship matrices. Derifed from
 #' \code{\link[pedigreemm]{pedigreemm}}.
 #'

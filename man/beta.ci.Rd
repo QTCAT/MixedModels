@@ -7,7 +7,7 @@
 beta.ci(object, conf = 0.95, index = 1)
 }
 \arguments{
-\item{object}{a bootstrap output object returned from a call to boot.}
+\item{object}{a bootstrap object returned from a call to boot.}
 
 \item{conf}{a scalar or vector containing the confidence level of the 
 required interval.}
@@ -16,7 +16,7 @@ required interval.}
 call to boot.out$statistic.}
 }
 \description{
-Using the normal approximation to a statistic, calculate beta distrinution
-two-sided confidence intervals.
+Using the bootstrapping mean and variance to calculate beta distributed two-sided 
+confidence intervals.
 }
 

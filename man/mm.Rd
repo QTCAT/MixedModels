@@ -2,7 +2,7 @@
 % Please edit documentation in R/mm.R
 \name{mm}
 \alias{mm}
-\title{Mixed Models incopareting relationship matrices}
+\title{Mixed Models with covariance relationship matrices}
 \usage{
 mm(formula, data, family = NULL, REML = TRUE, covarrel = list(),
   control = list(), start = NULL, verbose = FALSE, subset, weights,
@@ -108,7 +108,7 @@ correspond to the names of grouping factors for random-effects terms in the
 a \code{\linkS4class{pedigreemm}} object.
 }
 \description{
-Fit (Generalized) Linear Mixed Models incopareting user
+Fit (Generalized) Linear Mixed Models with user
 defined 'G-site' covariance relationship matrices. Derifed from
 \code{\link[pedigreemm]{pedigreemm}}.
 }
